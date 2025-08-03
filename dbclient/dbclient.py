@@ -53,14 +53,6 @@ class PgClient:
             return result[0]
         return None
 
-    def delete(self, query: str, params: tuple = None) -> int:
-        # тут ИИ помог, более менее разобралась, но все равно надо пояснить что тут происходит и верно ли это
-        try:
-            with self.connection.cursor() as cursor:
-                cursor.execute(query, params or ())
-                return cursor.rowcount
-        except Exception as e:
-            raise ConnectionError(f"Delete operation failed: {e}")
 
 
 
