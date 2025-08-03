@@ -1,5 +1,5 @@
 import requests
-from endpoints.base_client import BaseClient
+from api_clients.base_client import BaseClient
 
 
 class ZabotaApiClient(BaseClient):
@@ -19,9 +19,8 @@ class ZabotaApiClient(BaseClient):
     def get_active_id(self, status=200):
         response = requests.get(f"{self.host}/active")
         self.check_status(response=response, status=status)
-        list = response.json()
-        active_id = list["items"][0]["id"]
-        # как тут написать проверку, мол если у этого id тип бзе записи, проверь след id
+        active_data = response.json()
+        active_id = active_data["items"][0]["id"]
         return active_id
 
 
@@ -30,8 +29,8 @@ class ZabotaApiClient(BaseClient):
         self.check_status(response=response, status=status)
         return response.json()
 
-    def get_tour(self, tour_id, status=200):
-        response = requests.get(f"{self.host}/tour/{tour_id}?expand=gallery,additionalProduct,ticketType,placeStart,paymentType,timetable,routeBlock,included,category")
+    def get_tour(self, tour_id, expand = "gallery,additionalProduct,ticketType,placeStart,paymentType,timetable,routeBlock,included,category", status=200):
+        response = requests.get(f"{self.host}/tour/{tour_id}?{expand=}")
         self.check_status(response=response, status=status)
         return response.json()
 
