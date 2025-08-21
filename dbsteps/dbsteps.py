@@ -1,4 +1,4 @@
-from dbclient.dbclient import PgClient
+from db_client.dbclient import PgClient
 
 
 class DbSteps:

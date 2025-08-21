@@ -1,6 +1,10 @@
+import pytest
 from faker import Faker
 
+@pytest.mark.all_tests
+@pytest.mark.active
 class TestActive:
+    @pytest.mark.smoke
     def test_lead(self, api, db, fake):
     #отправка заявки на занятие
         res = db.get_first_active_id()
@@ -19,6 +23,7 @@ class TestActive:
         lead_id = list_lead["id"]
         db.delete_lead_id(lead_id)
 
+    @pytest.mark.regress
     def test_lead_negative_regtype(self, api, db):
         #запись на занятие с типом "без записи"
         res = db.get_first_active_id(2)
